@@ -1,0 +1,230 @@
+#EXP 6 NAVIGATION BAR :
+
+// App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Home from './pages/Home';
+import About from './pages/About';
+import Services from './pages/Services';
+import Contact from './pages/Contact';
+import './App.css';
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <nav className="navbar">
+          <h1 className="navbar-title">MyApp</h1>
+          <ul className="navbar-links">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/services">Services</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+
+
+
+
+/* App.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #333;
+  padding: 10px 20px;
+}
+
+.navbar-title {
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.navbar-links {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-links li {
+  margin: 0 10px;
+}
+
+.navbar-links a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar-links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .navbar-links {
+    flex-direction: column;
+    display: none; /* Hide links initially */
+  }
+
+  .navbar.active .navbar-links {
+    display: flex; /* Show links on click */
+  }
+}
+
+
+
+
+// pages/Home.js
+import React from 'react';
+
+function Home() {
+  return (
+    <div>
+      <h1>Home Page</h1>
+      <p>Welcome to the Home page!</p>
+    </div>
+  );
+}
+
+export default Home;
+
+
+
+
+
+
+// pages/About.js
+import React from 'react';
+
+function About() {
+  return (
+    <div>
+      <h1>About Page</h1>
+      <p>Learn more about us on the About page.</p>
+    </div>
+  );
+}
+
+export default About;
+
+
+
+
+
+// pages/Services.js
+import React from 'react';
+
+function Services() {
+  return (
+    <div>
+      <h1>Services Page</h1>
+      <p>These are our services.</p>
+    </div>
+  );
+}
+
+export default Services;
+
+
+
+
+
+// pages/Contact.js
+import React from 'react';
+
+function Contact() {
+  return (
+    <div>
+      <h1>Contact Page</h1>
+      <p>Get in touch with us on the Contact page.</p>
+    </div>
+  );
+}
+
+export default Contact;
+
+
+
+
+
+
+// App.js - Add a button for toggling mobile menu
+import React, { useState } from 'react';
+// other imports...
+
+function App() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleNavbar = () => {
+    setIsOpen(!isOpen);
+  };
+
+  return (
+    <Router>
+      <div className="App">
+        <nav className={`navbar ${isOpen ? 'active' : ''}`}>
+          <h1 className="navbar-title">MyApp</h1>
+          <button className="navbar-toggle" onClick={toggleNavbar}>
+            ☰
+          </button>
+          <ul className="navbar-links">
+            <li><Link to="/" onClick={toggleNavbar}>Home</Link></li>
+            <li><Link to="/about" onClick={toggleNavbar}>About</Link></li>
+            <li><Link to="/services" onClick={toggleNavbar}>Services</Link></li>
+            <li><Link to="/contact" onClick={toggleNavbar}>Contact</Link></li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+
+
+
+/* App.css - Add styles for navbar toggle button */
+.navbar-toggle {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 24px;
+  cursor: pointer;
+  display: none; /* Hidden by default */
+}
+
+@media (max-width: 600px) {
+  .navbar-toggle {
+    display: block; /* Show button on small screens */
+  }
+}
