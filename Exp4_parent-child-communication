@@ -1,0 +1,67 @@
+#EXP 4  PARENT CHILD COMMUNICATION : 
+
+//ProjectTasks.js
+import React, { useState } from 'react';
+import TaskDetail from './TaskDetail';
+
+const ProjectTasks = () => {
+    const [tasks, setTasks] = useState([
+        { id: 1, name: 'Design UI', completed: false },
+        { id: 2, name: 'Develop Backend', completed: false },
+        { id: 3, name: 'Test Application', completed: false },
+    ]);
+
+    // Function to update the task status
+    const updateTaskStatus = (taskId) => {
+        setTasks(tasks.map(task =>
+            task.id === taskId ? { ...task, completed: !task.completed } : task
+        ));
+    };
+
+    return (
+        <div>
+            <h1>Project Tasks</h1>
+            {tasks.map(task => (
+                <TaskDetail key={task.id} task={task} updateTaskStatus={updateTaskStatus} />
+            ))}
+        </div>
+    );
+};
+
+export default ProjectTasks;
+
+
+
+//TaskDetail.js
+import React from 'react';
+
+const TaskDetail = ({ task, updateTaskStatus }) => {
+    return (
+        <div>
+            <h2>{task.name}</h2>
+            <p>Status: {task.completed ? 'Completed' : 'Incomplete'}</p>
+            <button onClick={() => updateTaskStatus(task.id)}>
+                {task.completed ? 'Mark as Incomplete' : 'Mark as Completed'}
+            </button>
+        </div>
+    );
+};
+
+export default TaskDetail;
+
+
+
+
+//App.js
+import React from 'react';
+import ProjectTasks from './ProjectTasks';
+
+const App = () => {
+    return (
+        <div>
+            <ProjectTasks />
+        </div>
+    );
+};
+
+export default App;
